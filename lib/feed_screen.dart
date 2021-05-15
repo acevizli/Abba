@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/view_post_screen.dart';
 import 'package:flutter_appp/Classes.dart';
@@ -7,6 +9,11 @@ import 'Profile/ProfilePage.dart';
 import 'constants.dart';
 
 class FeedScreen extends StatefulWidget {
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+  const FeedScreen({Key key, this.analytics, this.observer}) : super(key: key);
+
   @override
   _FeedScreenState createState() => _FeedScreenState();
 }

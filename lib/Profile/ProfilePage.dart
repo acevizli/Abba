@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/view_post_screen.dart';
 import 'package:flutter_appp/Classes.dart';
@@ -11,8 +13,10 @@ enum ProfileTabs { posts, media, location }
 
 class ViewProfileScreen extends StatefulWidget {
   final User user;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
-  ViewProfileScreen({this.user});
+  ViewProfileScreen({this.user, this.analytics, this.observer});
 
   @override
   _ViewProfileScreenState createState() => _ViewProfileScreenState();

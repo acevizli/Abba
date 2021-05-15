@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Classes.dart';
 import 'package:flutter_appp/textStyle.dart';
@@ -5,8 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ViewPostScreen extends StatefulWidget {
   final Post post;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
-  ViewPostScreen({this.post});
+  ViewPostScreen({this.post, this.analytics, this.observer});
 
   @override
   _ViewPostScreenState createState() => _ViewPostScreenState();

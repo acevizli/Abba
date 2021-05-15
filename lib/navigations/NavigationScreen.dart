@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,6 +9,9 @@ import 'BottomNavbarItem.dart';
 import 'TabNavigator.dart';
 import 'bottom_nav_bar_cubit.dart';
 class NavigationScreen extends StatelessWidget {
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
   final Map<BottomNavbarItem,IconData> items = const {
     BottomNavbarItem.Main: Icons.home,
     BottomNavbarItem.Create: Icons.add,
@@ -25,6 +30,8 @@ class NavigationScreen extends StatelessWidget {
     BottomNavbarItem.DM: GlobalKey<NavigatorState>(),
     BottomNavbarItem.Notifications: GlobalKey<NavigatorState>(),
   };
+
+  NavigationScreen({Key key, this.analytics, this.observer}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

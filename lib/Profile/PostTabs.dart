@@ -1,3 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/view_post_screen.dart';
 import 'package:flutter_appp/Classes.dart';
@@ -9,8 +12,10 @@ import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
-  PostCard({this.post});
+  PostCard({this.post, this.analytics, this.observer});
 
   @override
   Widget build(BuildContext context) {
@@ -181,6 +186,11 @@ class PostCard extends StatelessWidget {
         ),
       ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<FirebaseAnalytics>('analytics', analytics));
   }
 }
 

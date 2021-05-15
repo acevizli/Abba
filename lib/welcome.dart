@@ -15,13 +15,14 @@ class WelcomeScreen extends StatefulWidget {
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
-  const WelcomeScreen({Key key, this.analytics, this.observer}) : super(key: key);
+  WelcomeScreen({Key key, this.analytics, this.observer}) : super(key: key);
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _msg = "";
+
 
   void setMessage(String msg){
     setState(() {
@@ -30,9 +31,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   Future<void> _setCurrentScreen() async{
-    await widget.analytics.setCurrentScreen(screenName: "Welcome Page");
-    setMessage("setcurrentscreen suceeded");
+    await widget.analytics.setCurrentScreen(screenName: "Login Page");
+    print("setcurrentscreen suceeded");
   }
+
+  Future<void> _setLogEvent() async {
+    await widget.analytics.logEvent(
+      name: "Login_page_from_welcome",
+      parameters: <String , dynamic> {
+        'screen': "Login page"
+      }
+    );
+    print("event logged");
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -60,11 +72,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               RoundedButton(
                 text: "LOGIN",
                 press: () {
+                  setState(() {
+                    _setCurrentScreen();
+                    _setLogEvent();
+                  });
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return LoginScreen();
+                        return LoginScreen(analytics: widget.analytics, observer: widget.observer,);
                       },
                     ),
                   );
@@ -78,7 +94,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return SignUpScreen();
+                        return SignUpScreen(analytics: widget.analytics,observer: widget.observer,);
                       },
                     ),
                   );

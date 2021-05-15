@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/rounded_button.dart';
@@ -12,7 +14,10 @@ import 'package:flutter_appp/signup_screen.dart';
 
 class EditProfilePage extends StatefulWidget {
   final User user;
- const EditProfilePage(this.user);
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+ EditProfilePage(this.user, this.analytics, this.observer);
 
 
  //ditProfilePage({Key key, @required this.user}) : super(key: key);

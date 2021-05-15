@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Profile/ProfilePage.dart';
 import 'package:flutter_appp/Search/search_username.dart';
@@ -9,14 +11,15 @@ import 'BottomNavbarItem.dart';
 
 class TabNavigator extends StatelessWidget {
   static const String tabNavigatorRoot = '/';
-
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   final GlobalKey<NavigatorState> navigatorKey;
   final BottomNavbarItem item;
 
   const TabNavigator({
     Key key,
     @required this.navigatorKey,
-    @required this.item,
+    @required this.item, this.analytics, this.observer,
   }) : super(key: key);
 
   @override
@@ -42,17 +45,17 @@ class TabNavigator extends StatelessWidget {
   Widget _getScreen(BuildContext context, BottomNavbarItem item) {
     switch (item) {
       case BottomNavbarItem.Main:
-        return FeedScreen();
+        return FeedScreen(analytics: analytics, observer: observer,);
       case BottomNavbarItem.Create:
         return Scaffold();
       case BottomNavbarItem.Profile:
-        return ViewProfileScreen(user: users[0]);
+        return ViewProfileScreen(user: users[0],analytics: analytics,observer: observer,);
       case BottomNavbarItem.Search:
-        return Search();
+        return Search(analytics: analytics,observer: observer,);
       case BottomNavbarItem.DM:
         return Scaffold();
       case BottomNavbarItem.Notifications:
-        return NotificationScreen();
+        return NotificationScreen(analytics: analytics,observer: observer,);
       default:
         return Scaffold();
     }

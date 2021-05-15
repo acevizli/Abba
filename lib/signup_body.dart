@@ -1,4 +1,6 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/constants.dart';
 import 'package:flutter_appp/feed_screen.dart';
@@ -16,6 +18,11 @@ import 'constants.dart';
 import 'textStyle.dart';
 
 class Body extends StatefulWidget {
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+  const Body({Key key, this.analytics, this.observer}) : super(key: key);
+
   @override
   _BodyState createState() => _BodyState();
 }
@@ -254,8 +261,7 @@ class _BodyState extends State<Body> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return WelcomeScreen(
-                                    );
+                                    return WelcomeScreen(observer: widget.observer, analytics: widget.analytics,);
                                   },
                                 ),
                               );

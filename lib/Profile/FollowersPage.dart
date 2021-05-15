@@ -1,5 +1,7 @@
 
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Profile/ProfilePage.dart';
 import 'package:flutter_appp/view_post_screen.dart';
@@ -9,8 +11,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FollowersPage extends StatefulWidget {
   final User user;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
-  FollowersPage({this.user});
+  FollowersPage({this.user, this.analytics, this.observer});
 
   @override
   _FollowersPage createState() => _FollowersPage();

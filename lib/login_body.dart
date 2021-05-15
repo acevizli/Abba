@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_appp/login_background.dart';
@@ -17,8 +19,11 @@ import 'package:flutter_appp/navigations/NavigationScreen.dart';
 
 
 class Body extends StatelessWidget {
-  const Body({
-    Key key,
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+  Body({
+    Key key, this.analytics, this.observer,
   }) : super(key: key);
 
   @override
@@ -56,7 +61,7 @@ class Body extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return WelcomeScreen();
+                        return WelcomeScreen(analytics: analytics, observer: observer,);
                       },
                     ),
                   );},
@@ -89,7 +94,7 @@ class Body extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return NavigationScreen();
+                        return NavigationScreen(analytics: analytics, observer: observer,);
                       },
                     ),
                   );
@@ -141,7 +146,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return SignUpScreen(analytics: analytics, observer: observer,);
                     },
                   ),
                 );

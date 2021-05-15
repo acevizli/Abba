@@ -1,5 +1,7 @@
 
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Classes.dart';
 import 'package:flutter_appp/Profile/PostTabs.dart';
@@ -16,6 +18,11 @@ import '../textStyle.dart';
 
 
 class Search extends StatelessWidget {
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+  const Search({Key key, this.analytics, this.observer}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 
