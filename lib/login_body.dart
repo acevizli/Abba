@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_appp/GoogleSignInProvider.dart';
 import 'package:flutter_appp/login_background.dart';
 import 'package:flutter_appp/signup_screen.dart';
 import 'package:flutter_appp/Classes.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_appp/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_appp/welcome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'textStyle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_appp/navigations/NavigationScreen.dart';
@@ -51,6 +53,17 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            OutlineButton.icon(
+                onPressed: (){
+                  final _provider = Provider.of<GoogleSignInProvider>(context,listen : false);
+                  _provider.login();
+                },
+                label: Text('Sign in with Google'),
+              shape: StadiumBorder(),
+              highlightedBorderColor: Colors.black,
+              borderSide: BorderSide(color: Colors.black),
+              icon: FaIcon(FontAwesomeIcons.google,color: Colors.red )
+            ),
             SizedBox(
               width: 150,
               child: Align(

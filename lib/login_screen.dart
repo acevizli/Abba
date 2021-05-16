@@ -2,6 +2,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/login_body.dart';
+import 'package:provider/provider.dart';
+
+import 'GoogleSignInProvider.dart';
 
 class LoginScreen extends StatefulWidget {
   final FirebaseAnalytics analytics;
@@ -17,7 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(analytics: widget.analytics, observer: widget.observer,),
+      body: ChangeNotifierProvider(
+          create: (context) => GoogleSignInProvider(),
+          child: Body(analytics: widget.analytics, observer: widget.observer,)),
     );
   }
 }

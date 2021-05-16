@@ -21,7 +21,7 @@ class NotifTile extends StatelessWidget {
           radius: 18,
         ),
         title: Text(
-          model.user.toString() + getText(),
+          model.user.username + getText(),
           style: TextStyle(
             color: kPrimaryColor,
             fontSize: 20,
