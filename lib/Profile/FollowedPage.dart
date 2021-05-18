@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +19,10 @@ class FollowedPage extends StatefulWidget {
 }
 
 class _FollowedPage extends State<FollowedPage> {
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
   @override
   Widget build(BuildContext context) {
     final title = 'Followed';
@@ -69,6 +71,7 @@ class _FollowedPage extends State<FollowedPage> {
                           ),
                         ),
                         onPressed: () {
+                          _setCurrentScreen(" $item's Profile Page");
                           Navigator.push(
                             context,
                             MaterialPageRoute(

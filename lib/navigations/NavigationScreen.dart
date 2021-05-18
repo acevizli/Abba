@@ -17,7 +17,7 @@ class NavigationScreen extends StatelessWidget {
     BottomNavbarItem.Create: Icons.add,
     BottomNavbarItem.Profile: Icons.person,
     BottomNavbarItem.Search: Icons.search,
-    BottomNavbarItem.DM: Icons.mail,
+    BottomNavbarItem.Settings: Icons.settings,
     BottomNavbarItem.Notifications: Icons.notifications,
   };
 
@@ -27,7 +27,7 @@ class NavigationScreen extends StatelessWidget {
     BottomNavbarItem.Create: GlobalKey<NavigatorState>(),
     BottomNavbarItem.Profile: GlobalKey<NavigatorState>(),
     BottomNavbarItem.Search: GlobalKey<NavigatorState>(),
-    BottomNavbarItem.DM: GlobalKey<NavigatorState>(),
+    BottomNavbarItem.Settings: GlobalKey<NavigatorState>(),
     BottomNavbarItem.Notifications: GlobalKey<NavigatorState>(),
   };
 
@@ -105,7 +105,7 @@ class NavigationScreen extends StatelessWidget {
       offstage: !isSelected,
       child: TabNavigator(
         navigatorKey: navigatorKeys[currentItem],
-        item: currentItem,
+        item: currentItem,analytics: analytics,observer: observer,
       ),
     );
   }

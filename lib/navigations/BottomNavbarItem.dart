@@ -3,6 +3,6 @@ enum BottomNavbarItem {
   Create,
   Profile,
   Search,
-  DM,
+  Settings,
   Notifications,
 }

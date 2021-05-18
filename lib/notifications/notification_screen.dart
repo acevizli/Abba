@@ -21,7 +21,11 @@ class NotificationScreen extends StatelessWidget {
   ];
 
   NotificationScreen({Key key, this.analytics, this.observer}) : super(key: key);
-  Widget build(BuildContext context) { //TODO enrich UI
+  Widget build(BuildContext context) {//TODO enrich UI
+    Future<void> _setCurrentScreen(String page) async{
+      await analytics.setCurrentScreen(screenName: page);
+      print("setcurrentscreen suceeded");
+    }
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -32,33 +36,33 @@ class NotificationScreen extends StatelessWidget {
             ),
           ),
         ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              'Notifications',
-              style: GoogleFonts.lato(
-                textStyle: stylePost,
-              ),
-            ),
-            Divider(
-              color: kPrimaryColor,
-              height: 20,
-              thickness: 3,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: notifications.map((notif) => NotifTile(model: notif)).toList(),
-                ),
-              ),
-            ),
-          ]
-      )
-    )
+        body: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Notifications',
+                    style: GoogleFonts.lato(
+                      textStyle: stylePost,
+                    ),
+                  ),
+                  Divider(
+                    color: kPrimaryColor,
+                    height: 20,
+                    thickness: 3,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: notifications.map((notif) => NotifTile(model: notif)).toList(),
+                      ),
+                    ),
+                  ),
+                ]
+            )
+        )
     );
   }
 }

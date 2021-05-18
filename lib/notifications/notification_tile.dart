@@ -21,7 +21,7 @@ class NotifTile extends StatelessWidget {
           radius: 18,
         ),
         title: Text(
-          model.user.toString() + getText(),
+          model.user.username + getText(),
           style: TextStyle(
             color: kPrimaryColor,
             fontSize: 20,
@@ -65,8 +65,8 @@ Widget _getTrailing(BuildContext context, NotifModel model) {
         height: 60.0,
         width: 60.0,
         child: Icon(Icons.photo_album_sharp),
-    ),
-  );
+      ),
+    );
   } else if (model.type == NotifType.follow) {
     return GestureDetector(
       onTap: ()

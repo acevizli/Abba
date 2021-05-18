@@ -17,10 +17,10 @@ class EditProfilePage extends StatefulWidget {
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
- EditProfilePage(this.user, this.analytics, this.observer);
+  EditProfilePage(this.user, this.analytics, this.observer);
 
 
- //ditProfilePage({Key key, @required this.user}) : super(key: key);
+  //ditProfilePage({Key key, @required this.user}) : super(key: key);
 
   @override
   _EditProfilePage createState() => _EditProfilePage();
@@ -28,6 +28,10 @@ class EditProfilePage extends StatefulWidget {
 
 
 class _EditProfilePage extends State<EditProfilePage> {
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
   TextEditingController NameController = new TextEditingController();
   TextEditingController BioController = new TextEditingController();
   /*User user;
@@ -92,44 +96,44 @@ class _EditProfilePage extends State<EditProfilePage> {
                 ],
               ),
               SizedBox(height: 25,),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 35.0),
-              child: TextField(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 35.0),
+                child: TextField(
 
-                controller: NameController,
-                onChanged: (hintText) {users[0].username = NameController.text;},
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-
-                    labelText: users[0].username,
-
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    hintText: "Enter your new name ",
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    )),
-              ),
-            ),
-            Padding(
-            padding: const EdgeInsets.only(bottom: 35.0),
-               child: TextField(
-                        controller: BioController,
-                         onChanged: (hintText) {users[0].username = BioController.text;},
-                        decoration: InputDecoration(
+                  controller: NameController,
+                  onChanged: (hintText) {users[0].username = NameController.text;},
+                  decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(bottom: 3),
 
-                  labelText: users[0].bio,
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                           hintText: "Enter your new bio",
-                           hintStyle: TextStyle(
-                              fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                               color: Colors.black,
-                                           )),
-                               ),
-                                     ),
+                      labelText: users[0].username,
+
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: "Enter your new name ",
+                      hintStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      )),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 35.0),
+                child: TextField(
+                  controller: BioController,
+                  onChanged: (hintText) {users[0].username = BioController.text;},
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 3),
+
+                      labelText: users[0].bio,
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: "Enter your new bio",
+                      hintStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      )),
+                ),
+              ),
               //buildTextField(user.username,"Name",value),
               //buildTextField(user.username,"Bio",value),
               Row(
@@ -139,7 +143,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                   ElevatedButton(
 
                     onPressed: () => {users[0].username = NameController.text, users[0].bio = BioController.text, ("lol"),
-                    /*Navigator.push(
+                      /*Navigator.push(
                                     context,
                                       MaterialPageRoute(
                                       builder: (context) => NewScreen(text: NameController.text,),
@@ -150,11 +154,11 @@ class _EditProfilePage extends State<EditProfilePage> {
                             builder: (context) => NewScreen2(text: BioController.text,),
                           )),*/
 
-                    setState(() {
-                    widget.user.username = NameController.text;
-                    widget.user.bio = BioController.text;
-                    }
-                    ),
+                      setState(() {
+                        widget.user.username = NameController.text;
+                        widget.user.bio = BioController.text;
+                      }
+                      ),
                     },
                     child: Text(
                       "SAVE",
@@ -169,15 +173,17 @@ class _EditProfilePage extends State<EditProfilePage> {
                     padding: EdgeInsets.symmetric(horizontal: 50),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) {
-                                                return SignUpScreen();
-                                                }
-                                            ),
-                                          );
-                                         },
+                    onPressed: () {
+                      _setCurrentScreen("Sign-Up Page");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) {
+                              return SignUpScreen();
+                            }
+                        ),
+                      );
+                    },
                     child: Text("CANCEL",
                         style: TextStyle(
                             fontSize: 14,
@@ -196,7 +202,7 @@ class _EditProfilePage extends State<EditProfilePage> {
 
 
   Widget buildTextField(String name, String placeholder,
-     value) {
+      value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(

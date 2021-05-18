@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appp/edit_profile/edit_profile.dart';
 import 'package:flutter_appp/view_post_screen.dart';
 import 'package:flutter_appp/Classes.dart';
 import 'package:flutter_appp/constants.dart';
@@ -44,8 +45,8 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
         return Column(
           children: widget.user.posts
               .map((post) => PostCard(
-                    post: post,
-                  ))
+            post: post,
+          ))
               .toList(),
         );
       case ProfileTabs.media:
@@ -60,22 +61,26 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
         return Column(
           children: widget.user.posts
               .map((post) => PostLocation(
-                    post: post,
-                  ))
+            post: post,
+          ))
               .toList(),
         );
     }
     return Column(
       children: widget.user.posts
           .map((post) => PostCard(
-                post: post,
-              ))
+        post: post,
+      ))
           .toList(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _setCurrentScreen(String page) async{
+      await widget.analytics.setCurrentScreen(screenName: page);
+      print("setcurrentscreen suceeded");
+    }
     return Scaffold(
       backgroundColor: Color(0xFFEDF0F6),
       body: ListView(
@@ -123,7 +128,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                   children: <Widget>[
                     CircleAvatar(
                       backgroundImage:
-                          NetworkImage('${widget.user.profileImg}'),
+                      NetworkImage('${widget.user.profileImg}'),
                       radius: 44.0,
                     ),
                     SizedBox(
@@ -162,34 +167,30 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                       ],
                     ),
                     SizedBox(
-                      width: 80,
+                      width: 10,
                     ),
-                    RaisedButton(
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(18),
-                        side: BorderSide(color: Colors.red),
-                      ),
-                      textColor: Colors.white,
-                      color: pressOn ? Colors.red : Colors.lightGreenAccent,
-                      child: pressText ? Text("Follow") : Text("Following"),
-                      onPressed: (){
-                        setState(() {
-                          pressText = !pressText;
-                          pressOn = !pressOn;
-                        });
-                      },
+                    Container(
+                      width: 60,
+                      height: 30,
+                      child: TextButton(
 
-                    ),
-                    TextButton(
-                      child: Text('  Edit Profile  '),
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: kPrimaryColor,
-                        onSurface: Colors.grey,
+                        child: Text('Edit',),
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: kPrimaryColor,
+                          onSurface: Colors.grey,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return EditProfilePage(widget.user,widget.analytics,widget.observer);
+                              },
+                            ),
+                          );
+                        },
                       ),
-                      onPressed: () {
-                        print('Pressed');
-                      },
                     ),
 
                   ],
@@ -247,6 +248,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                             ),
                           ),
                           onPressed: () {
+                            _setCurrentScreen("${widget.user}'s Profile Page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -283,6 +285,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                             ),
                           ),
                           onPressed: () {
+                            _setCurrentScreen("${widget.user}'s Profile Page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -368,7 +371,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
           getSelectedTab(),
         ],
       ),
-      
+
     );
   }
 }

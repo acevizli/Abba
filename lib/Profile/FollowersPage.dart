@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +19,10 @@ class FollowersPage extends StatefulWidget {
 }
 
 class _FollowersPage extends State<FollowersPage> {
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
   @override
   Widget build(BuildContext context) {
     final title = 'Followers';
@@ -36,7 +38,7 @@ class _FollowersPage extends State<FollowersPage> {
           title: Text(title),
           centerTitle: true,
           backgroundColor: kPrimaryColor,
-      ),
+        ),
         body: ListView.builder(
           // Let the ListView know how many items it needs to build.
           itemCount: widget.user.followers.length,
@@ -68,6 +70,7 @@ class _FollowersPage extends State<FollowersPage> {
                           ),
                         ),
                         onPressed: () {
+                          _setCurrentScreen("$item's Profile Page");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
