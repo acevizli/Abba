@@ -16,6 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'textStyle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_appp/navigations/NavigationScreen.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 
 class Body extends StatelessWidget {
