@@ -61,6 +61,7 @@ class Body extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
+                        //FirebaseCrashlytics.instance.crash();
                         return WelcomeScreen(analytics: analytics, observer: observer,);
                       },
                     ),
