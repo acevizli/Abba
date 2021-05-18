@@ -17,8 +17,14 @@ class PostCard extends StatelessWidget {
 
   PostCard({this.post, this.analytics, this.observer});
 
+
+
   @override
   Widget build(BuildContext context) {
+    Future<void> _setCurrentScreen(String page) async{
+      await analytics.setCurrentScreen(screenName: page);
+      print("setcurrentscreen suceeded");
+    }
     bool isPressed = false;
 
     return Padding(
@@ -77,6 +83,7 @@ class PostCard extends StatelessWidget {
                   InkWell(
                     onDoubleTap: () => print('Like post'),
                     onTap: () {
+                      _setCurrentScreen("Post Screen");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -150,6 +157,7 @@ class PostCard extends StatelessWidget {
                                   icon: Icon(Icons.chat),
                                   iconSize: 30.0,
                                   onPressed: () {
+                                    _setCurrentScreen("Post Screen");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -200,6 +208,7 @@ class PostMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       margin: EdgeInsets.fromLTRB(0, 8.0, 0.0, 8.0),
       child: Padding(
@@ -226,6 +235,7 @@ class PostMedia extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(

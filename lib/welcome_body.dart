@@ -11,12 +11,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Body extends StatefulWidget {
+  FirebaseAnalytics analytics;
+  FirebaseAnalyticsObserver observer;
+
+  Body({
+    Key key, this.analytics, this.observer,
+  }) : super(key: key);
 
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

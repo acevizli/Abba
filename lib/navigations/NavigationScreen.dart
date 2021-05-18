@@ -105,7 +105,7 @@ class NavigationScreen extends StatelessWidget {
       offstage: !isSelected,
       child: TabNavigator(
         navigatorKey: navigatorKeys[currentItem],
-        item: currentItem,
+        item: currentItem,analytics: analytics,observer: observer,
       ),
     );
   }

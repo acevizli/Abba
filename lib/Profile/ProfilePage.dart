@@ -76,6 +76,10 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _setCurrentScreen(String page) async{
+      await widget.analytics.setCurrentScreen(screenName: page);
+      print("setcurrentscreen suceeded");
+    }
     return Scaffold(
       backgroundColor: Color(0xFFEDF0F6),
       body: ListView(
@@ -247,6 +251,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                             ),
                           ),
                           onPressed: () {
+                            _setCurrentScreen("${widget.user}'s Profile Page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -283,6 +288,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                             ),
                           ),
                           onPressed: () {
+                            _setCurrentScreen("${widget.user}'s Profile Page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(

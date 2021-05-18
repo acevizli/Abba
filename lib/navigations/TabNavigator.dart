@@ -24,7 +24,8 @@ class TabNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeBuilders = _routeBuilders();
+
+    final routeBuilders = _routeBuilders(analytics,observer);
     return Navigator(
       key: navigatorKey,
       initialRoute: tabNavigatorRoot,
@@ -38,23 +39,32 @@ class TabNavigator extends StatelessWidget {
     );
   }
 
-  Map<String, WidgetBuilder> _routeBuilders() {
-    return {tabNavigatorRoot: (context) => _getScreen(context, item)};
+  Map<String, WidgetBuilder> _routeBuilders(FirebaseAnalytics analytics, FirebaseAnalyticsObserver observer ) {
+    return {tabNavigatorRoot: (context) => _getScreen(context, item,analytics,observer)};
   }
 
-  Widget _getScreen(BuildContext context, BottomNavbarItem item) {
+  Widget _getScreen(BuildContext context, BottomNavbarItem item,FirebaseAnalytics analytics, FirebaseAnalyticsObserver observer) {
+    Future<void> _setCurrentScreen(String page) async{
+      await analytics.setCurrentScreen(screenName: page);
+      print("setcurrentscreen suceeded");
+    }
     switch (item) {
       case BottomNavbarItem.Main:
+        _setCurrentScreen("Home Page");
         return FeedScreen(analytics: analytics, observer: observer,);
       case BottomNavbarItem.Create:
         return Scaffold();
       case BottomNavbarItem.Profile:
+        _setCurrentScreen("Profile Page");
         return ViewProfileScreen(user: users[0],analytics: analytics,observer: observer,);
       case BottomNavbarItem.Search:
+        _setCurrentScreen("Search Page");
         return Search(analytics: analytics,observer: observer,);
       case BottomNavbarItem.DM:
+        _setCurrentScreen("DM page");
         return Scaffold();
       case BottomNavbarItem.Notifications:
+        _setCurrentScreen("Notification Page");
         return NotificationScreen(analytics: analytics,observer: observer,);
       default:
         return Scaffold();

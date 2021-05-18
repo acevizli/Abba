@@ -30,20 +30,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
-  Future<void> _setCurrentScreen() async{
-    await widget.analytics.setCurrentScreen(screenName: "Login Page");
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
     print("setcurrentscreen suceeded");
   }
 
-  Future<void> _setLogEvent() async {
-    await widget.analytics.logEvent(
-      name: "Login_page_from_welcome",
-      parameters: <String , dynamic> {
-        'screen': "Login page"
-      }
-    );
-    print("event logged");
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +60,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(height: size.height * 0.05),
               Image.network('https://alexorl.edu.eg/congress/wp-content/uploads/2018/10/welcome.png'),
               SizedBox(height: size.height * 0.05),
-              OutlineButton(onPressed: _setCurrentScreen),
               RoundedButton(
                 text: "LOGIN",
                 press: () {
                   setState(() {
-                    _setCurrentScreen();
-                    _setLogEvent();
+                    _setCurrentScreen("Login Page");
                   });
                   Navigator.push(
                     context,
@@ -90,6 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 text: "SIGN UP",
                 color: kPrimaryLightColor,
                 press: () {
+                  _setCurrentScreen("Sign-Up Page");
                   Navigator.push(
                     context,
                     MaterialPageRoute(

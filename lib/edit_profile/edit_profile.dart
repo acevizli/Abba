@@ -28,6 +28,10 @@ class EditProfilePage extends StatefulWidget {
 
 
 class _EditProfilePage extends State<EditProfilePage> {
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
   TextEditingController NameController = new TextEditingController();
   TextEditingController BioController = new TextEditingController();
   /*User user;
@@ -169,7 +173,9 @@ class _EditProfilePage extends State<EditProfilePage> {
                     padding: EdgeInsets.symmetric(horizontal: 50),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {Navigator.push(
+                    onPressed: () {
+                      _setCurrentScreen("Sign-Up Page");
+                      Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) {

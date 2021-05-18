@@ -21,7 +21,11 @@ class NotificationScreen extends StatelessWidget {
   ];
 
   NotificationScreen({Key key, this.analytics, this.observer}) : super(key: key);
-  Widget build(BuildContext context) { //TODO enrich UI
+  Widget build(BuildContext context) {//TODO enrich UI
+    Future<void> _setCurrentScreen(String page) async{
+      await analytics.setCurrentScreen(screenName: page);
+      print("setcurrentscreen suceeded");
+    }
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

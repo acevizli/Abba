@@ -21,6 +21,10 @@ class FollowersPage extends StatefulWidget {
 }
 
 class _FollowersPage extends State<FollowersPage> {
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
   @override
   Widget build(BuildContext context) {
     final title = 'Followers';
@@ -68,6 +72,7 @@ class _FollowersPage extends State<FollowersPage> {
                           ),
                         ),
                         onPressed: () {
+                          _setCurrentScreen("$item's Profile Page");
                           Navigator.push(
                             context,
                             MaterialPageRoute(

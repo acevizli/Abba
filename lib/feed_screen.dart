@@ -41,6 +41,11 @@ class _FeedScreenState extends State<FeedScreen> {
     });
   }
 
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
+
   Widget _buildPost(int index) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -92,6 +97,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       ),
 
                       onPressed: () {
+                        _setCurrentScreen("${findUser(posts[index].username)}'s Profile Page");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -113,6 +119,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   InkWell(
                     onDoubleTap: () => print('Like post'),
                     onTap: () {
+                      _setCurrentScreen("Post Screen");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -190,6 +197,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                   icon: Icon(Icons.chat),
                                   iconSize: 30.0,
                                   onPressed: () {
+                                    _setCurrentScreen("Post Screen");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

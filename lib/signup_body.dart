@@ -28,6 +28,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
+  Future<void> _setCurrentScreen(String page) async{
+    await widget.analytics.setCurrentScreen(screenName: page);
+    print("setcurrentscreen suceeded");
+  }
   Size size;
 
 
@@ -257,6 +262,7 @@ class _BodyState extends State<Body> {
 
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(content: Text('Signed-up')));
+                              _setCurrentScreen("Welcome Page");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
