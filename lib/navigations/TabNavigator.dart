@@ -6,6 +6,7 @@ import 'package:flutter_appp/Search/search_username.dart';
 import 'package:flutter_appp/feed_screen.dart';
 import 'package:flutter_appp/login_screen.dart';
 import 'package:flutter_appp/notifications/notification_screen.dart';
+import 'package:flutter_appp/settings/settingsScreen.dart';
 import '../Classes.dart';
 import 'BottomNavbarItem.dart';
 
@@ -60,9 +61,9 @@ class TabNavigator extends StatelessWidget {
       case BottomNavbarItem.Search:
         _setCurrentScreen("Search Page");
         return Search(analytics: analytics,observer: observer,);
-      case BottomNavbarItem.DM:
+      case BottomNavbarItem.Settings:
         _setCurrentScreen("DM page");
-        return Scaffold();
+        return settingsScreen(analytics: analytics,observer: observer,);
       case BottomNavbarItem.Notifications:
         _setCurrentScreen("Notification Page");
         return NotificationScreen(analytics: analytics,observer: observer,);
