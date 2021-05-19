@@ -90,14 +90,15 @@ class _BodyState extends State<Body> {
 
       setmessage('Log-in-Starting');
       _setCurrentScreen("Home Page");
-      Navigator.push(
+
+      /*Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) {
             return NavigationScreen(analytics: analytics, observer: observer,);
           },
         ),
-      );
+      );*/
     } on FirebaseAuthException catch (e)
     {
       print(e.toString());
