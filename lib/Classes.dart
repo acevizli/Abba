@@ -79,7 +79,7 @@ List<Comment> comments = [
     userImageUrl : 'assets/pp3.jpg',
     postID: 3,
     timeago : '20 mins',
-  )];
+  ) ];
 
 
 class Post {
@@ -264,6 +264,35 @@ List<Post> user_post_1 = [
 
 ];
 
+/*class User {
+  String name, surname, username,phoneNumber, mailAddress;
+  int id;
+  List <Products> basket = [];
+
+  User({
+    this.id,
+    this.name,
+    this.surname,
+    this.username,
+    this.mailAddress,
+    this.phoneNumber,
+    this.basket,
+
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      surname: json['surname'] as String,
+      username: json['username'] as String,
+      mailAddress: json['mailAddress'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+
+    );
+  }
+}*/
+
 class User {
   String username, email, profileImg , bio;
 
@@ -287,10 +316,51 @@ class User {
     this.bio,
   });
 
+
+
+
+
   getFollowedCount(){
     return followed.length;
   }
+  getFollowersCount(){
+    return followers.length;
+  }
 
+
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as int,
+      bio: json['bio'] as String,
+      profileImg: json['profileImg'] as String,
+      username: json['username'] as String,
+      email: json['email'] as String,
+      postCount: json['postCount'] as int,
+      notifications: json['notifications'] as List<Notification>,
+      locations: json['locations'] as List<Location>,
+      posts: json['posts'] as List<Post>,
+      followers: json['followers'] as List<int>,
+      followed: json['followed'] as List<int>,
+
+    ); }
+  //post location ve notification icin toJson metodu gerekli
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      //'posts': posts?.map((e) => e.toJson())?.toList(),
+      //'followers': followers?.map((e) => e.toJson())?.toList(),
+      //'followed': followers?.map((e) => e.toJson())?.toList(),
+      //'locations': locations?.map((e) => e.toJson())?.toList(),
+      //'notifications': notifications?.map((e) => e.toJson())?.toList(),
+      'profileImg': profileImg,
+      'bio': bio,
+      'username': username,
+      'email': email,
+      'postCount': postCount,
+
+    };
+  }
 }
 
 
