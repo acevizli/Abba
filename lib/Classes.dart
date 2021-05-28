@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
@@ -266,6 +267,7 @@ List<Post> user_post_1 = [
 
 class User {
   String username, email, profileImg , bio;
+  bool isPriv;
 
   int id,postCount;
   List <int> followers, followed;
@@ -285,7 +287,25 @@ class User {
     this.id,
     this.notifications ,
     this.bio,
+    this.isPriv,
   });
+
+  /*factory User.fromDocument(DocumentSnapshot json){
+    return User(
+        id: json['id'] as int,
+        bio: json['bio'] as String,
+        profileImg: json['profileImg'] as String,
+        username: json['username'] as String,
+        email: json['email'] as String,
+        postCount: json['postCount'] as int,
+        notifications: json['notifications'] as List<Notification>,
+        locations: json['locations'] as List<Location>,
+        posts: json['posts'] as List<Post>,
+        followers: json['followers'] as List<int>,
+        followed: json['followed'] as List<int>,
+        isPriv: json['isPriv'] as bool
+    );
+  }*/
 
   getFollowedCount(){
     return followed.length;

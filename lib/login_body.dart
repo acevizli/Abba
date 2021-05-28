@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_appp/db/database.dart';
 import 'package:flutter_appp/login_background.dart';
 import 'package:flutter_appp/signup_screen.dart';
 /*import 'package:flutter_appp/Classes.dart';*/
@@ -44,6 +45,8 @@ class _BodyState extends State<Body> {
 
   String password;
 
+  String username;
+
   FirebaseAuth auth = FirebaseAuth.instance;
 
   void setmessage(String msg)
@@ -65,6 +68,8 @@ class _BodyState extends State<Body> {
           email: email,
           password: password);
       print(userCredential.toString());
+      DatabaseService(uid: userCredential.user.uid).createUserData(email, username);
+
       setmessage('Sign up ended');
     } on FirebaseAuthException catch (e)
     {
@@ -194,9 +199,15 @@ class _BodyState extends State<Body> {
             Image.network('https://www.seekpng.com/png/full/47-475361_facebook-flat-logo-twitter-flat-logo-instagram-flat.png',height: size.height * 0.20,),
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
-              hintText: "Username",
+              hintText: "E-mail",
               onChanged: (value) {
                 email=value;
+              },
+            ),
+            RoundedInputField(
+              hintText: "username",
+              onChanged: (value) {
+                username=value;
               },
             ),
             RoundedPasswordField(
