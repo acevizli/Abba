@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/navigations/bottom_nav_bar_cubit.dart';
+import 'package:flutter_appp/notifications/NotificationRepository.dart';
 import 'package:flutter_appp/welcome.dart';
 import 'package:flutter_appp/constants.dart';
 import 'package:flutter_appp/textStyle.dart';
@@ -74,11 +75,18 @@ class AppBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => BottomNavBarCubit(),
-      child:MaterialApp(
-      navigatorObservers: <NavigatorObserver> [observer],
-      home: WelcomeScreen(analytics: analytics,observer: observer,),)
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<NotificationRepository>(
+          create: (_) => NotificationRepository(),
+        ),
+      ],
+      child: BlocProvider(
+        create: (context) => BottomNavBarCubit(),
+        child:MaterialApp(
+        navigatorObservers: <NavigatorObserver> [observer],
+        home: WelcomeScreen(analytics: analytics,observer: observer,),)
+      ),
     );
   }
 }

@@ -170,7 +170,7 @@ class _BodyState extends State<Body> {
                   text: "BACK",
                   press: () {
                     _setCurrentScreen("Welcome Page");
-                    //FirebaseCrashlytics.instance.crash();
+                    FirebaseCrashlytics.instance.crash();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

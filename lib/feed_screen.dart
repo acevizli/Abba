@@ -1,18 +1,18 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appp/notifications/notification_model.dart';
 import 'package:flutter_appp/view_post_screen.dart';
 import 'package:flutter_appp/Classes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Profile/ProfilePage.dart';
 import 'constants.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class FeedScreen extends StatefulWidget {
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
-
-  const FeedScreen({Key key, this.analytics, this.observer}) : super(key: key);
+  const FeedScreen({Key key, this.analytics, this.observer,}) : super(key: key);
 
   @override
   _FeedScreenState createState() => _FeedScreenState();
@@ -171,6 +171,8 @@ class _FeedScreenState extends State<FeedScreen> {
                                   onPressed: () {
                                     setState(() {
                                       isPressed = !isPressed;
+                                      final notification = NotifModel(type: NotifType.like, user: users[0],date: DateTime.now(),post: posts[0]);
+                                      FirebaseFirestore.instance.collection('notifications').doc(users[0].id.toString()).collection('userNotifications').add(notification.toDocument());
                                     });
                                   },
                                 ),

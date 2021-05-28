@@ -5,10 +5,13 @@ import 'package:flutter_appp/Profile/ProfilePage.dart';
 import 'package:flutter_appp/Search/search_username.dart';
 import 'package:flutter_appp/feed_screen.dart';
 import 'package:flutter_appp/login_screen.dart';
+import 'package:flutter_appp/notifications/NotificationRepository.dart';
 import 'package:flutter_appp/notifications/notification_screen.dart';
+import 'package:flutter_appp/notifications/notifications_bloc.dart';
 import 'package:flutter_appp/settings/settingsScreen.dart';
 import '../Classes.dart';
 import 'BottomNavbarItem.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TabNavigator extends StatelessWidget {
   static const String tabNavigatorRoot = '/';
@@ -66,7 +69,10 @@ class TabNavigator extends StatelessWidget {
         return settingsScreen(analytics: analytics,observer: observer,);
       case BottomNavbarItem.Notifications:
         _setCurrentScreen("Notification Page");
-        return NotificationScreen(analytics: analytics,observer: observer,);
+        return BlocProvider(
+  create: (context) => NotificationsBloc(notificationRepository: context.read<NotificationRepository>()),
+  child: NotificationScreen(analytics: analytics,observer: observer,),
+);
       default:
         return Scaffold();
     }

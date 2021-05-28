@@ -14,8 +14,7 @@ class NotifTile extends StatelessWidget {
   NotifTile({this.model});
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
+    return ListTile(
         leading: CircleAvatar(
           backgroundImage: NetworkImage(model.user.profileImg),
           radius: 18,
@@ -38,7 +37,6 @@ class NotifTile extends StatelessWidget {
           return ViewProfileScreen(user: model.user,);
         }))
         },
-      ),
     );
   }
   String getText()
