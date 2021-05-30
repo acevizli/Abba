@@ -1,8 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appp/db/auth.dart';
 import 'package:flutter_appp/navigations/bottom_nav_bar_cubit.dart';
 import 'package:flutter_appp/notifications/NotificationRepository.dart';
 import 'package:flutter_appp/welcome.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_appp/home.dart';
 import 'package:flutter_appp/welcomeNoFirebase.dart';
 import 'package:flutter_appp/welcomeUnknown.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -40,7 +43,11 @@ class MyApp extends StatelessWidget {
           }
           if(snapshot.connectionState == ConnectionState.done){
             print("Firebase connected");
-            return AppBase();
+
+            return StreamProvider<User>.value(value: AuthService().user,
+                child: MaterialApp(
+                  home: AppBase()),
+                );
           }
           return MaterialApp(
             home: WelcomeScreenUnknown(),
@@ -69,6 +76,8 @@ class AppBase extends StatelessWidget {
   const AppBase({
     Key key,
   }) : super(key: key);
+
+
 
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);

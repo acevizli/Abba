@@ -24,6 +24,7 @@ import 'textStyle.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_appp/navigations/NavigationScreen.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_appp/db/auth.dart';
 
 
 class Body extends StatefulWidget {
@@ -48,6 +49,7 @@ class _BodyState extends State<Body> {
   String username;
 
   FirebaseAuth auth = FirebaseAuth.instance;
+  final AuthService _auth = AuthService();
 
   void setmessage(String msg)
   {
@@ -85,6 +87,7 @@ class _BodyState extends State<Body> {
     }
   }
 
+
   Future<void> loginUser( FirebaseAnalytics analytics,FirebaseAnalyticsObserver observer ) async {
     try
     {
@@ -92,9 +95,13 @@ class _BodyState extends State<Body> {
           email: email,
           password: password
       );
+      User user = userCredential.user;
+
 
       setmessage('Log-in-Starting');
       _setCurrentScreen("Home Page");
+
+
 
       /*Navigator.push(
         context,
@@ -215,8 +222,11 @@ class _BodyState extends State<Body> {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {
+              press: () async {
                 //if (findUser(username)) {
+                //auth.signInWithEmailAndPassword(email,password);
+                dynamic result = await _auth.signInWithEmailAndPassword(email, password,username);
+
                 loginUser(widget.analytics,widget.observer);
                 /*Navigator.push(
                     context,

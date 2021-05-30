@@ -265,11 +265,86 @@ List<Post> user_post_1 = [
 
 ];
 
-class User {
+class AppUser {
   String username, email, profileImg , bio;
   bool isPriv;
 
   int id,postCount;
+  List <String> followers, followed;
+  List <Post> posts;
+  List <Location> locations;
+  List <Notification> notifications;
+
+  AppUser({
+    this.username,
+    this.email,
+    this.profileImg,
+    this.followed,
+    this.followers,
+    // this.postCount,
+    this.posts,
+    //this.locations,
+    //this.id,
+    this.notifications ,
+    this.bio,
+    this.isPriv,
+  });
+
+  factory AppUser.fromDocument(DocumentSnapshot json){
+    return AppUser(
+        //id: json['id'] as int,
+        bio: json['bio'] as String,
+        profileImg: json['profileImg'] as String,
+        username: json['username'] as String,
+        email: json['email'] as String,
+        //postCount: json['postCount'] as int,
+        notifications: json['notifications'] as List<Notification>,
+        //locations: json['locations'] as List<Location>,
+        posts: json['posts'] as List<Post>,
+        followers: json['followers'],
+        followed: json['followed'],
+        isPriv: json['isPriv'] as bool
+    );
+  }
+
+
+  getFollowedCount(){
+    return followed.length;
+  }
+
+
+}
+
+class User2 {
+  String username, email, profileImg , bio;
+  bool isPriv;
+  int id;
+  int postCount;
+  List <int> followers, followed;
+  List <Post> posts;
+  List <Location> locations;
+  List <Notification> notifications;
+
+  User2({
+    this.username,
+    this.email,
+    this.profileImg,
+    this.followed,
+    this.followers,
+    this.postCount,
+    this.posts,
+    this.locations,
+    this.id,
+    this.notifications ,
+    this.bio,
+    this.isPriv,
+  });}
+
+class User {
+  String username, email, profileImg , bio;
+  bool isPriv;
+  int id;
+  int postCount;
   List <int> followers, followed;
   List <Post> posts;
   List <Location> locations;
@@ -281,7 +356,7 @@ class User {
     this.profileImg,
     this.followed,
     this.followers,
-    this.postCount,
+     this.postCount,
     this.posts,
     this.locations,
     this.id,

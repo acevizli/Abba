@@ -3,6 +3,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/GoogleSignInProvider.dart';
+import 'package:flutter_appp/db/auth.dart';
 import 'package:provider/provider.dart';
 class settingsScreen extends StatelessWidget {
   const settingsScreen({Key key, this.analytics, this.observer}) : super(key: key);
@@ -10,6 +11,7 @@ class settingsScreen extends StatelessWidget {
   final FirebaseAnalyticsObserver observer;
   @override
   Widget build(BuildContext context) {
+    final _auth = AuthService();
     final _user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       body: Container(
@@ -34,14 +36,16 @@ class settingsScreen extends StatelessWidget {
                   SizedBox(height: 5,),
                   ElevatedButton(
                     child: Text('LOGOUT'),
-                    onPressed: (){
+                    onPressed: () async {
+                      dynamic result = _auth.signOut();
                       final _provider = Provider.of<GoogleSignInProvider>(context,listen: false);
                       if(_provider.isLoggedInWithGoogle) {
                         print('BRUHHH MOMENTS');
                         _provider.logout();
                       }
                       else{
-                        FirebaseAuth.instance.signOut();
+                        dynamic result = await _auth.signOut();
+                        //FirebaseAuth.instance.signOut();
                       }
                     },
                   ),
