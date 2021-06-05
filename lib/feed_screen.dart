@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/notifications/notification_model.dart';
 import 'package:flutter_appp/view_post_screen.dart';
@@ -23,7 +24,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   int likeCount = 15;
 
-  User findUser(String username){
+  /*AppUser findUser(String username){
     for(var i in users)
       {
         if(i.username == username)
@@ -33,7 +34,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
       }
 
-  }
+  }*/
 
   void buttonPressed() {  //for floatingActionButton
     setState(() {
@@ -96,7 +97,7 @@ class _FeedScreenState extends State<FeedScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return ViewProfileScreen(user: findUser(posts[index].username));
+                              return ViewProfileScreen(user: users[0]);
                             },
                           ),
                         );
@@ -172,7 +173,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                     setState(() {
                                       isPressed = !isPressed;
                                       final notification = NotifModel(type: NotifType.like, user: users[0],date: DateTime.now(),post: posts[0]);
-                                      FirebaseFirestore.instance.collection('notifications').doc(users[0].id.toString()).collection('userNotifications').add(notification.toDocument());
+                                      FirebaseFirestore.instance.collection('notifications').doc(FirebaseAuth.instance.currentUser.uid).collection('userNotifications').add(notification.toDocument());
                                     });
                                   },
                                 ),

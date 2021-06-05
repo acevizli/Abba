@@ -3,6 +3,8 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Profile/ProfilePage.dart';
 import 'package:flutter_appp/Search/search_username.dart';
+import 'package:flutter_appp/createPost/CreatePostScreen.dart';
+import 'package:flutter_appp/db/StorageRepository.dart';
 import 'package:flutter_appp/feed_screen.dart';
 import 'package:flutter_appp/login_screen.dart';
 import 'package:flutter_appp/notifications/NotificationRepository.dart';
@@ -57,7 +59,7 @@ class TabNavigator extends StatelessWidget {
         _setCurrentScreen("Home Page");
         return FeedScreen(analytics: analytics, observer: observer,);
       case BottomNavbarItem.Create:
-        return Scaffold();
+        return CreatePostScreen(analytics: analytics,observer: observer,storageRepository: context.read<StorageRepository>(),);
       case BottomNavbarItem.Profile:
         _setCurrentScreen("Profile Page");
         return ViewProfileScreen(user: users[0],analytics: analytics,observer: observer,);

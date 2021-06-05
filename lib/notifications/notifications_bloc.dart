@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_appp/notifications/notification_model.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_appp/notifications/NotificationRepository.dart';
@@ -21,7 +22,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         super(NotificationsState.initial()) {
     _notificationsSubscription?.cancel();
     _notificationsSubscription = _notificationRepository
-        .getUserNotifications(userId: users[0].id.toString()) // todo get user from firebaseauth
+        .getUserNotifications(userId: FirebaseAuth.instance.currentUser.uid) // todo get user from firebaseauth
         .listen((notifications) async {
       final allNotifications = await Future.wait(notifications);
       add(NotificationsUpdateNotifications(notifications: allNotifications));

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appp/db/StorageRepository.dart';
 import 'package:flutter_appp/db/auth.dart';
 import 'package:flutter_appp/navigations/bottom_nav_bar_cubit.dart';
 import 'package:flutter_appp/notifications/NotificationRepository.dart';
@@ -88,6 +89,9 @@ class AppBase extends StatelessWidget {
       providers: [
         RepositoryProvider<NotificationRepository>(
           create: (_) => NotificationRepository(),
+        ),
+        RepositoryProvider<StorageRepository>(
+          create: (_) => StorageRepository(),
         ),
       ],
       child: BlocProvider(

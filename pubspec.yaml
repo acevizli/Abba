@@ -42,6 +42,10 @@ dependencies:
   enum_to_string: ^1.0.14
   provider: ^5.0.0
   cloud_firestore: ^2.2.0
+  uuid: ^3.0.4
+  firebase_storage: ^8.1.1
+  image_cropper: ^1.4.0
+  image_picker: ^0.8.0+1
 
 dev_dependencies:
   flutter_test:
