@@ -1,30 +1,79 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Classes.dart';
 import 'package:flutter_appp/Profile/PostTabs.dart';
 import 'package:flutter_appp/Profile/ProfilePage.dart';
+import 'package:flutter_appp/edit_profile/globals.dart';
 import 'package:flutter_appp/view_post_screen.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 
 
 
 import '../constants.dart';
 import '../textStyle.dart';
+class GetUsers extends StatelessWidget {
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+
+  const GetUsers({Key key, this.analytics, this.observer}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    users2 = [];
+
+    return FutureBuilder(
+        future: FirebaseFirestore.instance
+            .collection("users")
+            .get(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            QuerySnapshot documents = snapshot.data;
+            List<DocumentSnapshot> docs = documents.docs;
+            docs.forEach((data) {
+              Map<String, dynamic> data2 = data.data();
+              if(users2.contains(data2["username"]))
+                {
+
+                }
+              else{
+              users2.add(data2["username"]);}
+
+            });
+          } else {
+            print("nodata");
+          }
+          return Search(analytics: analytics,observer: observer,);
+        });
+  }
+}
+
 
 
 class Search extends StatelessWidget {
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
+
   const Search({Key key, this.analytics, this.observer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
+
+
 
     return Scaffold(
 
@@ -93,9 +142,9 @@ class DataSearch extends SearchDelegate<String> {
     int count = 0;
     int index = 0;
 
-    for (var i in users)
+    for (var i in users2)
     {
-      if(i.username == query)
+      if(i == query)
       {
         index = count;
         break;
@@ -108,7 +157,7 @@ class DataSearch extends SearchDelegate<String> {
       index = count;
     }
     print("${index}");
-    if(index >= users.length)
+    if(index >= users2.length)
     {
       //showAlertDialog('Ups', 'There is no product called $query');
       return Card(
@@ -135,25 +184,25 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionList = query.isEmpty?users:
+    final suggestionList = query.isEmpty?users2:
     //_products.where((q) => q.description.startsWith(query)).toList();
-    users.where((p) => p.username.startsWith(query)).toList();
+    users2.where((p) => p.startsWith(query)).toList();
 
 
     return ListView.builder(itemBuilder: (context,index) => ListTile(
       onTap: (){
         print("$index");
-        query = suggestionList[index].username;
+        query = suggestionList[index];
 
         showResults(context);
       },
       leading: Icon(Icons.account_circle_rounded),
       title: RichText(
         text: TextSpan(
-            text: suggestionList[index].username.substring(0,query.length),
+            text: suggestionList[index].substring(0,query.length),
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             children: [TextSpan(
-              text: suggestionList[index].username.substring(query.length),
+              text: suggestionList[index].substring(query.length),
               style: TextStyle(color: Colors.grey),
             )]
 

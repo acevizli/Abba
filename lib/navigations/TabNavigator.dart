@@ -63,7 +63,7 @@ class TabNavigator extends StatelessWidget {
         return ViewProfileScreen(user: users[0],analytics: analytics,observer: observer,);
       case BottomNavbarItem.Search:
         _setCurrentScreen("Search Page");
-        return Search(analytics: analytics,observer: observer,);
+        return GetUsers(analytics: analytics,observer: observer,);
       case BottomNavbarItem.Settings:
         _setCurrentScreen("DM page");
         return settingsScreen(analytics: analytics,observer: observer,);

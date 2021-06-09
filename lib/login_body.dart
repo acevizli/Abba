@@ -221,10 +221,10 @@ class _BodyState extends State<Body> {
               onChanged: (value) {password =value;},
             ),
             RoundedButton(
-              text: "LOGIN",
+               text: "LOGIN",
               press: () async {
                 //if (findUser(username)) {
-                //auth.signInWithEmailAndPassword(email,password);
+                //auth.signInWithEmailAndPas sword(email,password);
                 dynamic result = await _auth.signInWithEmailAndPassword(email, password,username);
 
                 loginUser(widget.analytics,widget.observer);

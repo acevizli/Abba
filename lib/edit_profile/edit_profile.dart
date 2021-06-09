@@ -6,12 +6,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/Classes.dart';
 import 'package:flutter_appp/db/database.dart';
+import 'package:flutter_appp/edit_profile/globals.dart';
 import 'package:flutter_appp/rounded_button.dart';
 import 'package:flutter_appp/rounded_input_field.dart';
 import 'package:flutter_appp/rounded_password_field.dart';
 import 'package:flutter_appp/Classes.dart' as classer;
 import 'package:flutter_appp/signup_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../textStyle.dart';
 
 class GetUserBio extends StatelessWidget {
   final String documentId;
@@ -38,6 +42,7 @@ class GetUserBio extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data.data();
           print(data);
+          isPriv = data["isPriv"];
           print(data["username"]);
           print(data["bio"]);
           return Text("${data['bio']}");
@@ -48,6 +53,7 @@ class GetUserBio extends StatelessWidget {
     );
   }
 }
+
 
 
 
@@ -92,7 +98,8 @@ class _EditProfilePage extends State<EditProfilePage> {
 
   bool _profilenameValid = true;
   bool _bioValid = true;
-  bool priv = false;
+  bool priv = isPriv;
+
 
 
   @override
@@ -197,9 +204,8 @@ class _EditProfilePage extends State<EditProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
 
-                    Text("your bio was"),
+                    //Text("your bio was"),
 
-                    GetUserBio(user2.uid),
 
                     ElevatedButton(
 
@@ -254,6 +260,17 @@ class _EditProfilePage extends State<EditProfilePage> {
                     ),
                   ],
                 ),
+                Column(
+                  children: [
+                    Text("Your Previous Bio",
+                        style: GoogleFonts.lato(
+                          textStyle: stylePost,
+                        )),
+                    GetUserBio(user2.uid) == Text("")? Text("You don't have a bio yet"): GetUserBio(user2.uid),
+                  ],
+
+                )
+
               ],
             ),
           ),

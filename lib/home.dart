@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appp/walkThrough.dart';
 import 'package:flutter_appp/welcome.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:after_layout/after_layout.dart';
@@ -12,6 +14,7 @@ SplashState createState() => new SplashState();
 }
 
 class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
+
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
@@ -29,6 +32,7 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
 
   @override
   void afterFirstLayout(BuildContext context) => checkFirstSeen();
+
 
   @override
   Widget build(BuildContext context) {

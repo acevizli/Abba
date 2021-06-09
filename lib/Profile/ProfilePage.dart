@@ -24,6 +24,7 @@ class ViewProfileScreen extends StatefulWidget {
 }
 
 class _ViewProfileScreenState extends State<ViewProfileScreen> {
+
   bool isPressed = false;
   bool pressOn = false;
   bool pressText = false;
@@ -77,6 +78,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     Future<void> _setCurrentScreen(String page) async{
       await widget.analytics.setCurrentScreen(screenName: page);
       print("setcurrentscreen suceeded");
